@@ -64,10 +64,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-flow" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/04/08/hello-world/" class="article-date">
-  <time datetime="2020-04-08T10:26:35.703Z" itemprop="datePublished">2020-04-08</time>
+    <a href="/2020/06/09/flow/" class="article-date">
+  <time datetime="2020-06-09T02:54:00.000Z" itemprop="datePublished">2020-06-09</time>
 </a>
     
   </div>
@@ -78,7 +78,130 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/08/hello-world/">Hello World</a>
+      <a class="article-title" href="/2020/06/09/flow/">Flow</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>工作方式：</p>
+<p>  1 类型推断<br><br>    根据变量的上下文推断出变量类型，然后检查类型</p>
+<pre><code>例： 
+/*@flow*/
+
+function getStr(str){
+    return str.split(&apos;-&apos;)
+}
+
+getStr(&apos;asd-f&apos;); // true
+getStr(55); // false
+
+
+function add(a, b){
+    return a + b;
+}
+
+add(&apos;11&apos;, 5); // true
+add(11, 5); // true</code></pre><p>  2 类型注释<br><br>     事先注释类型，基于注释判断</p>
+<pre><code>例：
+
+/*@flow*/
+
+function add(a:number, b:number){
+    return a + b;
+}
+
+add(&apos;11&apos;, 5); // false
+add(11, 5); // true
+
+class Bar {
+    x: string | number;
+    y: Array&lt;string&gt;;
+    z: boolean;
+
+    constructor(x: string | number, y: Array&lt;string&gt;, z: boolean | void){  //void 表示非必传
+        this.x = x;
+        this.y = y;
+        this.z = z
+    }
+}
+
+var bar = Bar(&apos;zhang&apos;, [1,2,3]);  // false
+var bar = Bar(14, [&apos;1&apos;,&apos;2&apos;,&apos;3&apos;]);  // true
+var bar = Bar(&apos;zhang&apos;, [&apos;1&apos;,&apos;2&apos;,&apos;3&apos;], true);  // true
+
+// 如果任意类型T可以为null或者undefined，需写成?T的格式
+var foo: ?string = null;
+
+var foo = &apos;adf&apos;;  // true;
+var foo;  // true;</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/09/flow/" data-id="ckb7by7db0001h45nfnp96ycl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-demo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/22/demo/" class="article-date">
+  <time datetime="2020-04-22T09:45:40.192Z" itemprop="datePublished">2020-04-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/22/demo/">demo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: demo<br>date: 2020年04月22日17:46:05</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/22/demo/" data-id="ckb7bwosj0000h45n2ejx8tho" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/09/hello-world/" class="article-date">
+  <time datetime="2020-04-09T05:57:37.000Z" itemprop="datePublished">2020-04-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/09/hello-world/">Hello World</a>
     </h1>
   
 
@@ -90,7 +213,7 @@
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">$ hexo server -d</span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
@@ -103,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/04/08/hello-world/" data-id="ck8s81cz50000h95n09zac9im" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/04/09/hello-world/" data-id="ck8s81cz50000h95n09zac9im" class="article-share-link">Share</a>
       
       
     </footer>
@@ -131,7 +254,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
     </div>
   </div>
 
@@ -144,7 +267,15 @@
       <ul>
         
           <li>
-            <a href="/2020/04/08/hello-world/">Hello World</a>
+            <a href="/2020/06/09/flow/">Flow</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/22/demo/">demo</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/09/hello-world/">Hello World</a>
           </li>
         
       </ul>
