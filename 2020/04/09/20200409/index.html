@@ -5,17 +5,17 @@
   
 
   
-  <title>Flow | Hexo</title>
+  <title>20200409 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="工作方式：   1 类型推断    根据变量的上下文推断出变量类型，然后检查类型 例：  &#x2F;*@flow*&#x2F;  function getStr(str){     return str.split(&amp;apos;-&amp;apos;) }  getStr(&amp;apos;asd-f&amp;apos;); &#x2F;&#x2F; true getStr(55); &#x2F;&#x2F; false   function add(a, b){     r">
+  <meta name="description" content="1.介绍一下标准的CSS的盒子模型？与低版本IE的盒子模型有什么不同的？ a.标准盒子模型：宽度&#x3D;内容的宽度（content）+ border + padding + margin b.低版本IE盒子模型：宽度&#x3D;内容宽度（content+border+padding）+ margin2.box-sizing属性 用来控制元素的盒子模型的解析模式，默认为content-box context-box">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flow">
-<meta property="og:url" content="http://yoursite.com/2020/06/09/flow/index.html">
+<meta property="og:title" content="20200409">
+<meta property="og:url" content="http://yoursite.com/2020/04/09/20200409/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="工作方式：   1 类型推断    根据变量的上下文推断出变量类型，然后检查类型 例：  &#x2F;*@flow*&#x2F;  function getStr(str){     return str.split(&amp;apos;-&amp;apos;) }  getStr(&amp;apos;asd-f&amp;apos;); &#x2F;&#x2F; true getStr(55); &#x2F;&#x2F; false   function add(a, b){     r">
+<meta property="og:description" content="1.介绍一下标准的CSS的盒子模型？与低版本IE的盒子模型有什么不同的？ a.标准盒子模型：宽度&#x3D;内容的宽度（content）+ border + padding + margin b.低版本IE盒子模型：宽度&#x3D;内容宽度（content+border+padding）+ margin2.box-sizing属性 用来控制元素的盒子模型的解析模式，默认为content-box context-box">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-06-09T02:54:00.000Z">
-<meta property="article:modified_time" content="2020-06-09T03:24:20.347Z">
+<meta property="article:published_time" content="2020-04-09T05:53:25.000Z">
+<meta property="article:modified_time" content="2020-06-09T07:21:04.792Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-flow" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-20200409" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/06/09/flow/" class="article-date">
-  <time datetime="2020-06-09T02:54:00.000Z" itemprop="datePublished">2020-06-09</time>
+    <a href="/2020/04/09/20200409/" class="article-date">
+  <time datetime="2020-04-09T05:53:25.000Z" itemprop="datePublished">2020-04-09</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Flow
+      20200409
     </h1>
   
 
@@ -88,61 +88,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>工作方式：</p>
-<p>  1 类型推断<br><br>    根据变量的上下文推断出变量类型，然后检查类型</p>
-<pre><code>例： 
-/*@flow*/
-
-function getStr(str){
-    return str.split(&apos;-&apos;)
-}
-
-getStr(&apos;asd-f&apos;); // true
-getStr(55); // false
-
-
-function add(a, b){
-    return a + b;
-}
-
-add(&apos;11&apos;, 5); // true
-add(11, 5); // true</code></pre><p>  2 类型注释<br><br>     事先注释类型，基于注释判断</p>
-<pre><code>例：
-
-/*@flow*/
-
-function add(a:number, b:number){
-    return a + b;
-}
-
-add(&apos;11&apos;, 5); // false
-add(11, 5); // true
-
-class Bar {
-    x: string | number;
-    y: Array&lt;string&gt;;
-    z: boolean;
-
-    constructor(x: string | number, y: Array&lt;string&gt;, z: boolean | void){  //void 表示非必传
-        this.x = x;
-        this.y = y;
-        this.z = z
-    }
-}
-
-var bar = Bar(&apos;zhang&apos;, [1,2,3]);  // false
-var bar = Bar(14, [&apos;1&apos;,&apos;2&apos;,&apos;3&apos;]);  // true
-var bar = Bar(&apos;zhang&apos;, [&apos;1&apos;,&apos;2&apos;,&apos;3&apos;], true);  // true
-
-// 如果任意类型T可以为null或者undefined，需写成?T的格式
-var foo: ?string = null;
-
-var foo = &apos;adf&apos;;  // true;
-var foo;  // true;</code></pre>
+        <p>1.介绍一下标准的CSS的盒子模型？与低版本IE的盒子模型有什么不同的？</p>
+<pre><code>a.标准盒子模型：宽度=内容的宽度（content）+ border + padding + margin
+b.低版本IE盒子模型：宽度=内容宽度（content+border+padding）+ margin</code></pre><p>2.box-sizing属性</p>
+<pre><code>用来控制元素的盒子模型的解析模式，默认为content-box
+context-box：W3C的标准盒子模型，设置元素的 height/width 属性指的是content部分的高/宽
+border-box：IE传统盒子模型。设置元素的height/width属性指的是border + padding + content部分的高/宽</code></pre><p>3.position和display、overflow、float这些属性叠加会怎样？</p>
+<pre><code>display是规定元素的框类型，position是规定元素的定位类型，float是布局方式，定义元素在哪个方向浮动。
+优先级：position：fixed/fixed优先级最高，float失去作用，float或者position：absolute的元素，只能是块元素或者表格</code></pre><p>4.对BFC(block formatting context)的理解</p>
+<pre><code>BFC规定了内部的Block Box如何布局
+  定位方案：
+    1.内部的box会在垂直方向上一个接一个放置
+    2.box垂直方向的距离由margin决定，属于同一个BFC的两个响铃的Box的margin会重叠
+    3.每个元素的margin box的左边，与包含块border box的左边想接触
+    4.BFC的区域不会与float box重叠
+    5.BFC是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素
+    6.计算BFC的高度时，浮动元素也会参与计算
+满足下列条件之一就可出发BFC
+    1.根元素，即html
+    2.float的值不为none
+    3.overflow的值不为visible
+    4.display的值为inline-block、table-cell、table-caption
+    5.position的值为absolute或者fixed</code></pre><p>5.为什么会出现浮动和什么时候需要清除浮动？清除浮动的方式？</p>
+<pre><code>浮动元素碰到包含它的边框或者浮动元素的边框停留。由于浮动</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/09/flow/" data-id="ckb7by7db0001h45nfnp96ycl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/04/09/20200409/" data-id="ckb7lif0h0000k75n9qqj7abc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -151,20 +123,15 @@ var foo;  // true;</code></pre>
     
 <nav id="article-nav">
   
-    <a href="/2020/06/09/Vue-js-%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E8%AE%BE%E8%AE%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/04/09/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Vue.js 源码目录设计
+          Hello World
         
       </div>
     </a>
   
-  
-    <a href="/2020/04/22/demo/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">demo</div>
-    </a>
   
 </nav>
 
