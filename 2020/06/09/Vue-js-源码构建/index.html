@@ -7,15 +7,15 @@
   
   <title>Vue.js 源码构建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="基于Rollup构建 一、为何使用Rollup webpack更强大，会将img、css、js等静态资源都编辑成js Rollup只处理js，更轻量，编译后的代码更友好，适合使用在js库。二、package.json script 字段为npm的执行脚本">
+  <meta name="description" content="基于Rollup构建 一、为何使用Rollup webpack更强大，会将img、css、js等静态资源都编辑成js Rollup只处理js，更轻量，编译后的代码更友好，适合使用在js库。二、package.json script 字段为npm的执行脚本,不同命令可以打包不同版本的vue scripts&#x2F;build.js  先从配置文件(.&#x2F;config.js)读取配置，再通过命令行参数对构建配置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue.js 源码构建">
 <meta property="og:url" content="http://yoursite.com/2020/06/09/Vue-js-%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="基于Rollup构建 一、为何使用Rollup webpack更强大，会将img、css、js等静态资源都编辑成js Rollup只处理js，更轻量，编译后的代码更友好，适合使用在js库。二、package.json script 字段为npm的执行脚本">
+<meta property="og:description" content="基于Rollup构建 一、为何使用Rollup webpack更强大，会将img、css、js等静态资源都编辑成js Rollup只处理js，更轻量，编译后的代码更友好，适合使用在js库。二、package.json script 字段为npm的执行脚本,不同命令可以打包不同版本的vue scripts&#x2F;build.js  先从配置文件(.&#x2F;config.js)读取配置，再通过命令行参数对构建配置">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-09T05:55:42.000Z">
-<meta property="article:modified_time" content="2020-06-09T07:21:15.487Z">
+<meta property="article:modified_time" content="2020-06-10T02:58:50.992Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -92,11 +92,38 @@
 <p>一、为何使用Rollup</p>
 <pre><code>webpack更强大，会将img、css、js等静态资源都编辑成js
 Rollup只处理js，更轻量，编译后的代码更友好，适合使用在js库。</code></pre><p>二、package.json</p>
-<pre><code>script 字段为npm的执行脚本</code></pre>
+<pre><code>script 字段为npm的执行脚本,不同命令可以打包不同版本的vue</code></pre><ol>
+<li>scripts/build.js</li>
+</ol>
+<pre><code>先从配置文件(./config.js)读取配置，再通过命令行参数对构建配置过滤，构建出不同用途的vue.js</code></pre><ol start="2">
+<li>scripts/config.js</li>
+</ol>
+<pre><code>都是vue.js构建的配置，entry表示构建的入口js文件地址，dest表示构建后的js文件地址，format表示构建的格式，cjs表示构建出来的文件遵循CommonJS规范，es表示构建出来的文件遵循ESModule规范，umd表示构建出来的文件遵循UMD规范。</code></pre><p>三、Runtime Only VS Runtime + Compiler</p>
+<ol>
+<li>Runtime Only</li>
+</ol>
+<pre><code>在使用Runtime Only版本的vue.js使，通常需要借助如webpack的vue-loader工具把.vue文件编译成Javascript，因为是在编译阶段做的，所以只包含运行时的vue.js代码，因此代码体积会更轻量</code></pre><ol start="2">
+<li>Runtime + Compiler</li>
+</ol>
+<pre><code>我们如果没有对代码做预编译，但又使用了template属性并传入一个字符串，则需要在客户端编译模板，如下所示：
+
+// 需要编译器的版本
+new Vue({
+    template: &apos;&lt;div&gt;{{ hi }}&lt;/div&gt;&apos;
+})
+
+// 不需要
+new Vue({
+    render(h){
+        return h(&apos;div&apos;, this.hi)
+    }
+})
+
+因为在vue.js 2.0中，最终渲染都是通过render函数，如果写template属性，则需要编译成render函数，那么这个编译过程会发生时，就需要带有编译器的版本。很明显，这个编译过程对性能有一定损耗，所以通常我们更推荐使用Runtime-Only的Vue.js</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/06/09/Vue-js-%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA/" data-id="ckb7lif0o0001k75nclqa23qg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/09/Vue-js-%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA/" data-id="ckb7ig52c0003h45n2uap6fgt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -157,11 +184,11 @@ Rollup只处理js，更轻量，编译后的代码更友好，适合使用在js�
           </li>
         
           <li>
-            <a href="/2020/04/22/demo/">demo</a>
+            <a href="/2020/04/09/hello-world/">Hello World</a>
           </li>
         
           <li>
-            <a href="/2020/04/09/hello-world/">Hello World</a>
+            <a href="/2020/04/09/20200409/">20200409</a>
           </li>
         
       </ul>
