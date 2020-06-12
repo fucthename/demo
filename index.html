@@ -64,6 +64,124 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-从入口开始" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/11/%E4%BB%8E%E5%85%A5%E5%8F%A3%E5%BC%80%E5%A7%8B/" class="article-date">
+  <time datetime="2020-06-11T06:03:21.000Z" itemprop="datePublished">2020-06-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/11/%E4%BB%8E%E5%85%A5%E5%8F%A3%E5%BC%80%E5%A7%8B/">从入口开始</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>web应用下，Runtime + Comoiler构建出来的Vue.js的入口文件是 src/platforms/web/entry-runtime-with-compiler.js</p>
+<p>寻找Vue定义的来源</p>
+<p>src/platforms/web/entry-runtime-with-compiler.js</p>
+<pre><code>import Vue from &apos;./runtime/index&apos;</code></pre><p>src/platforms/web/runtime/index.js</p>
+<pre><code>import Vue from &apos;core/index</code></pre><p>src/core/index.js</p>
+<pre><code>import Vue from &apos;./instance/index</code></pre><p>src/core/instance/index.js</p>
+<p>因为这里有很多xxMixin的函数调用，并把Vue当参数传入，在Vue的prototype上扩展一些方法，按功能把这些拓展方法分散到多个模块中实现，便于代码维护和管理，而ES6的Class难以实现，所以没有使用Class</p>
+<pre><code>function Vue(options){
+    if(process.env.NODE_ENV !== &apos;production&apos; &amp;&amp; !(this instanceof Vue) ){
+        warn(&apos;Vue is a constructor and should be called with the `new` keyword&apos;)
+    }
+    this._init(options)
+}
+
+this instanceof Vue 判断是否new Vue()，若没有，则this指向window，为false，提示报错。new过this指向Vue，为true。</code></pre><p>initGlobalAPI</p>
+<p>Vue初始化过程中，除了在原型prototype上扩展方法，还给Vue这个对象本身扩展全局的静态方法，它的定义在 src/core/global-api/index.js</p>
+<p>src/core/index.js</p>
+<pre><code>...
+6  initGlobalAPI(Vue)
+...</code></pre><p>src/core/global-api/index.js</p>
+<p>定义了一些Vue上的全局方法</p>
+<pre><code>export function initGlobalAPI (Vue: GlobalAPI) {
+    // config
+    const configDef = {}
+    configDef.get = () =&gt; config
+
+    /* config 来自src/core/config.js 
+    就是官网API的全局配置
+    ...
+    silent： 是否显示Vue所有的日志与警告
+    optionMergeStrategies： 自定义合并策略的选项
+    devtools：配置是否允许 vue-devtools 检查代码
+    productionTip： 是否阻止vue在启动时生成生产提示
+    ...
+    */
+
+
+    if (process.env.NODE_ENV !== &apos;production&apos;) {
+      configDef.set = () =&gt; {
+        warn(
+          &apos;Do not replace the Vue.config object, set individual fields instead.&apos;
+        )
+      }
+    }
+    Object.defineProperty(Vue, &apos;config&apos;, configDef)
+
+    // exposed util methods.
+    // NOTE: these are not considered part of the public API - avoid relying on
+    // them unless you are aware of the risk.
+    // 官方建议不使用util里的方法，因为不稳定，可能会变
+    Vue.util = {
+      warn,
+      extend,
+      mergeOptions,
+      defineReactive
+    }
+
+    Vue.set = set
+    Vue.delete = del
+    Vue.nextTick = nextTick
+
+    // 2.6 explicit observable API
+    Vue.observable = &lt;T&gt;(obj: T): T =&gt; {
+      observe(obj)
+      return obj
+    }
+
+    Vue.options = Object.create(null)
+    ASSET_TYPES.forEach(type =&gt; {
+      Vue.options[type + &apos;s&apos;] = Object.create(null)
+    })
+
+    // this is used to identify the &quot;base&quot; constructor to extend all plain-object
+    // components with in Weex&apos;s multi-instance scenarios.
+    Vue.options._base = Vue
+
+    extend(Vue.options.components, builtInComponents)
+
+    initUse(Vue) // Vue.use()
+    initMixin(Vue)    // Vue.mixin()
+    initExtend(Vue)  // Vue.extend()
+    initAssetRegisters(Vue)   // component,directive,filter
+  }</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/11/%E4%BB%8E%E5%85%A5%E5%8F%A3%E5%BC%80%E5%A7%8B/" data-id="ckbbl7bwv0002qk5nhbyddmph" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Vue-js-源码构建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/09/Vue-js-%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA/" class="article-date">
@@ -404,6 +522,10 @@ border-box：IE传统盒子模型。设置元素的height/width属性指的是bo
       <ul>
         
           <li>
+            <a href="/2020/06/11/%E4%BB%8E%E5%85%A5%E5%8F%A3%E5%BC%80%E5%A7%8B/">从入口开始</a>
+          </li>
+        
+          <li>
             <a href="/2020/06/09/Vue-js-%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA/">Vue.js 源码构建</a>
           </li>
         
@@ -417,10 +539,6 @@ border-box：IE传统盒子模型。设置元素的height/width属性指的是bo
         
           <li>
             <a href="/2020/04/09/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/09/20200409/">20200409</a>
           </li>
         
       </ul>
