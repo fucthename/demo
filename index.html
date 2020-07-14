@@ -64,6 +64,108 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-new-Vue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/12/new-Vue/" class="article-date">
+  <time datetime="2020-06-12T03:48:49.000Z" itemprop="datePublished">2020-06-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/12/new-Vue/">new Vue</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Vue是一个类</p>
+<p>在 src/core/instance/index.js 中</p>
+<pre><code>function Vue (options) {
+      if (process.env.NODE_ENV !== &apos;production&apos; &amp;&amp;
+        !(this instanceof Vue)
+      ) {
+        warn(&apos;Vue is a constructor and should be called with the `new` keyword&apos;)
+      }
+      this._init(options)
+  }</code></pre><p>调用了this._init 方法，此方法在 src/core/instance/init.js 中，<br>主要是定义uid，合并配置，初始化生命周期、事件中心、渲染、data、props、computed、watcher等。</p>
+<pre><code>Vue.prototype._init = function (options?: Object) {
+    const vm: Component = this
+    // a uid
+    vm._uid = uid++
+
+    let startTag, endTag
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== &apos;production&apos; &amp;&amp; config.performance &amp;&amp; mark) {
+      startTag = `vue-perf-start:${vm._uid}`
+      endTag = `vue-perf-end:${vm._uid}`
+      mark(startTag)
+    }
+
+    // a flag to avoid this being observed
+    vm._isVue = true
+    // merge options
+    if (options &amp;&amp; options._isComponent) {
+      // optimize internal component instantiation
+      // since dynamic options merging is pretty slow, and none of the
+      // internal component options needs special treatment.
+      initInternalComponent(vm, options)
+    } else {
+      vm.$options = mergeOptions(
+        resolveConstructorOptions(vm.constructor),
+        options || {},
+        vm
+      )
+    }
+    /* istanbul ignore else */
+    if (process.env.NODE_ENV !== &apos;production&apos;) {
+      initProxy(vm)
+    } else {
+      vm._renderProxy = vm
+    }
+    // expose real self
+    vm._self = vm
+    initLifecycle(vm) // 生命周期
+    initEvents(vm)    // 事件中心
+    initRender(vm)    // 渲染
+    callHook(vm, &apos;beforeCreate&apos;)
+    initInjections(vm) // resolve injections before data/props
+    initState(vm) 
+    initProvide(vm) // resolve provide after data/props
+    callHook(vm, &apos;created&apos;)
+
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== &apos;production&apos; &amp;&amp; config.performance &amp;&amp; mark) {
+      vm._name = formatComponentName(vm, false)
+      mark(endTag)
+      measure(`vue ${vm._name} init`, startTag, endTag)
+    }
+
+    if (vm.$options.el) {
+        // 挂载,把模板渲染成DOM
+      vm.$mount(vm.$options.el)
+    }
+  }</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/06/12/new-Vue/" data-id="ckclj4xae0001vc5ng12s10fw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-从入口开始" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/11/%E4%BB%8E%E5%85%A5%E5%8F%A3%E5%BC%80%E5%A7%8B/" class="article-date">
@@ -522,6 +624,10 @@ border-box：IE传统盒子模型。设置元素的height/width属性指的是bo
       <ul>
         
           <li>
+            <a href="/2020/06/12/new-Vue/">new Vue</a>
+          </li>
+        
+          <li>
             <a href="/2020/06/11/%E4%BB%8E%E5%85%A5%E5%8F%A3%E5%BC%80%E5%A7%8B/">从入口开始</a>
           </li>
         
@@ -535,10 +641,6 @@ border-box：IE传统盒子模型。设置元素的height/width属性指的是bo
         
           <li>
             <a href="/2020/06/09/flow/">Flow</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/09/hello-world/">Hello World</a>
           </li>
         
       </ul>
